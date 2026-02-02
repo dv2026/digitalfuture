@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions | DigitallyFuture</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="nk.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* FAQ Page Specific Styles */
+    .faq-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: 100px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .faq-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    
+    .faq-hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      opacity: 0.9;
+    }
+    
+    .faq-search {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+    
+    .faq-search input {
+      width: 100%;
+      padding: 15px 20px;
+      border-radius: 50px;
+      border: none;
+      font-size: 1rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .faq-search button {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .faq-search button:hover {
+      background: var(--primary);
+    }
+    
+    .faq-categories {
+      background: #f9f9f9;
+      padding: 40px 0;
+    }
+    
+    .category-tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+    
+    .category-tab {
+      background: white;
+      padding: 12px 25px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      font-weight: 500;
+    }
+    
+    .category-tab.active {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .category-tab:hover:not(.active) {
+      background: #e9e9e9;
+    }
+    
+    .faq-section {
+      margin-bottom: 60px;
+    }
+    
+    .faq-section h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: var(--primary);
+      text-align: center;
+      position: relative;
+    }
+    
+    .faq-section h2:after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      margin: 10px auto;
+      border-radius: 2px;
+    }
+    
+    .faq-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .faq-item {
+      background: white;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .faq-item:hover {
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .faq-question {
+      padding: 20px 25px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    
+    .faq-question i {
+      transition: transform 0.3s ease;
+    }
+    
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+    
+    .faq-answer {
+      padding: 0 25px;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .faq-item.active .faq-answer {
+      padding: 0 25px 25px;
+      max-height: 1000px;
+    }
+    
+    .faq-answer p {
+      margin-bottom: 15px;
+    }
+    
+    .faq-answer ul, .faq-answer ol {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+    
+    .faq-answer li {
+      margin-bottom: 8px;
+    }
+    
+    .contact-cta {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: 80px 0;
+      text-align: center;
+    }
+    
+    .contact-cta h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    
+    .contact-cta p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      opacity: 0.9;
+    }
+    
+    @media (max-width: 768px) {
+      .faq-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .faq-hero p {
+        font-size: 1rem;
+      }
+      
+      .category-tabs {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .category-tab {
+        width: 80%;
+        text-align: center;
+      }
+      
+      .faq-section h2 {
+        font-size: 1.7rem;
+      }
+      
+      .contact-cta h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 3D Background Elements -->
+  <div class="bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+<div id="header-container"></div>
+<script src="header.js"></script>
+
+  <!-- FAQ HERO SECTION -->
+  <section class="faq-hero">
+    <div class="container">
+      <h1>Frequently Asked Questions</h1>
+      <p>Find answers to the most common questions about our digital marketing services, packages, and processes.</p>
+      <div class="faq-search">
+        <input type="text" placeholder="Search for answers..." id="faqSearch">
+        <button><i class="fa fa-search"></i> Search</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ CATEGORIES -->
+  <section class="faq-categories">
+    <div class="container">
+      <div class="category-tabs">
+        <div class="category-tab active" data-category="all">All Questions</div>
+        <div class="category-tab" data-category="general">General</div>
+        <div class="category-tab" data-category="services">Services</div>
+        <div class="category-tab" data-category="packages">Packages</div>
+        <div class="category-tab" data-category="ai">AI Services</div>
+        <div class="category-tab" data-category="process">Process</div>
+        <div class="category-tab" data-category="billing">Billing</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ CONTENT -->
+  <section class="faq-content section">
+    <div class="container">
+      <!-- General Questions -->
+      <div class="faq-section" data-category="general">
+        <h2>General Questions</h2>
+        <div class="faq-container">
+          <div class="faq-item">
+            <div class="faq-question">
+              What is DigitallyFuture and what services do you offer?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>DigitallyFuture is a premier digital marketing agency that provides comprehensive 360° digital marketing solutions. Our services include:</p>
+              <ul>
+                <li>SEO (Search Engine Optimization)</li>
+                <li>Social Media Marketing</li>
+                <li>PPC Advertising (Google Ads, Facebook Ads, etc.)</li>
+                <li>Content Marketing</li>
+                <li>Web Development</li>
+                <li>Email Marketing</li>
+                <li>AI-Powered Marketing Automation</li>
+                <li>Analytics and Reporting</li>
+              </ul>
+              <p>We help businesses of all sizes establish and grow their online presence with data-driven strategies.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              How long have you been in business?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>DigitallyFuture has been providing premium digital marketing services since 2018. Over the years, we've helped hundreds of businesses achieve their digital marketing goals and have built a reputation for delivering measurable results.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              Do you work with businesses outside of India?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Yes, we work with clients globally. While we're based in India, our digital marketing services are effective for businesses worldwide. We have experience working with clients in the US, UK, Australia, Canada, and many other countries.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              What industries do you specialize in?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>We have experience across multiple industries including:</p>
+              <ul>
+                <li>E-commerce and Retail</li>
+                <li>Real Estate</li>
+                <li>Healthcare</li>
+                <li>Education</li>
+                <li>SaaS and Technology</li>
+                <li>Hospitality and Travel</li>
+                <li>Finance and FinTech</li>
+                <li>Manufacturing</li>
+                <li>Professional Services</li>
+              </ul>
+              <p>Our strategies are tailored to meet the unique challenges and opportunities of each industry.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Services Questions -->
+      <div class="faq-section" data-category="services">
+        <h2>Services Questions</h2>
+        <div class="faq-container">
+          <div class="faq-item">
+            <div class="faq-question">
+              How long does it take to see results from SEO?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>SEO is a long-term strategy, and results typically appear gradually:</p>
+              <ul>
+                <li><strong>Initial improvements (1-3 months):</strong> Technical fixes, indexation improvements, and initial keyword movements</li>
+                <li><strong>Noticeable results (3-6 months):</strong> Significant improvements in rankings for medium-competition keywords</li>
+                <li><strong>Substantial growth (6-12 months):</strong> Dominant rankings for competitive keywords and consistent organic traffic growth</li>
+              </ul>
+              <p>PPC and social media advertising deliver faster, more immediate results that can complement your SEO strategy.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              Do you handle content creation as part of your services?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Yes, we have an in-house team of content creators including writers, designers, and video producers. Our content services include:</p>
+              <ul>
+                <li>Blog posts and articles</li>
+                <li>Website copywriting</li>
+                <li>Social media content</li>
+                <li>Email newsletters</li>
+                <li>Video scripts and production</li>
+                <li>Infographics and visual content</li>
+                <li>AI-generated content (with human editing)</li>
+              </ul>
+              <p>All content is tailored to your brand voice, audience, and SEO requirements.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              What makes your social media marketing different?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Our social media marketing approach is unique because:</p>
+              <ul>
+                <li><strong>Data-Driven Strategy:</strong> We use analytics to identify your most valuable audience and content types</li>
+                <li><strong>Platform Specialization:</strong> We create platform-specific strategies rather than one-size-fits-all approaches</li>
+                <li><strong>Content Integration:</strong> We integrate social media with your overall content and SEO strategy</li>
+                <li><strong>AI-Powered Optimization:</strong> We use AI tools to optimize posting times, content performance, and audience targeting</li>
+                <li><strong>Conversion Focus:</strong> We design campaigns that drive measurable business results, not just engagement</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              Do you provide website development services?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Yes, we offer comprehensive web development services including:</p>
+              <ul>
+                <li>Responsive website design and development</li>
+                <li>E-commerce solutions (WooCommerce, Shopify, Magento)</li>
+                <li>WordPress development and customization</li>
+                <li>Landing page creation</li>
+                <li>Website speed optimization</li>
+                <li>UI/UX design</li>
+                <li>Website maintenance and support</li>
+              </ul>
+              <p>Our development team works closely with our SEO specialists to ensure your website is optimized for search engines from the ground up.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- AI Services Questions -->
+      <div class="faq-section" data-category="ai">
+        <h2>AI Services Questions</h2>
+        <div class="faq-container">
+          <div class="faq-item">
+            <div class="faq-question">
+              How do your AI services improve marketing results?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Our AI services enhance marketing in several key ways:</p>
+              <ul>
+                <li><strong>Predictive Analytics:</strong> AI algorithms analyze data to forecast customer behavior and campaign performance</li>
+                <li><strong>Personalization at Scale:</strong> Deliver tailored content and experiences to individual users based on their behavior</li>
+                <li><strong>Automated Optimization:</strong> AI continuously adjusts campaigns for better performance without manual intervention</li>
+                <li><strong>Content Generation:</strong> Create high-quality content faster using AI writing assistants (with human oversight)</li>
+                <li><strong>Customer Service Automation:</strong> AI chatbots provide 24/7 support and lead qualification</li>
+                <li><strong>Advanced Segmentation:</strong> Identify micro-segments of your audience for hyper-targeted campaigns</li>
+              </ul>
+              <p>This leads to higher conversion rates, reduced costs, and improved ROI across all marketing channels.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              What is AI marketing automation and how does it work?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>AI marketing automation uses artificial intelligence to automate and optimize marketing processes. Here's how it works:</p>
+              <ol>
+                <li><strong>Data Collection:</strong> Our systems gather data from your website, campaigns, and customer interactions</li>
+                <li><strong>Pattern Recognition:</strong> AI algorithms identify patterns in customer behavior and campaign performance</li>
+                <li><strong>Automated Decision Making:</strong> The system makes real-time adjustments to campaigns based on performance data</li>
+                <li><strong>Personalized Experiences:</strong> AI delivers tailored content, offers, and messaging to each user</li>
+                <li><strong>Continuous Learning:</strong> The system learns from outcomes to improve future decisions</li>
+              </ol>
+              <p>This results in marketing that becomes more effective over time with less manual effort.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              Can AI completely replace human marketers?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>No, AI cannot completely replace human marketers. Instead, it augments human capabilities:</p>
+              <ul>
+                <li><strong>AI handles repetitive tasks:</strong> Data analysis, reporting, bid management, and content distribution</li>
+                <li><strong>Humans provide strategy and creativity:</strong> Big-picture planning, creative direction, and emotional intelligence</li>
+                <li><strong>Collaboration delivers the best results:</strong> AI provides insights and automation, while humans provide context and creativity</li>
+              </ul>
+              <p>Our approach combines the efficiency of AI with the strategic thinking of our expert marketers to deliver superior results.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              What AI tools and platforms do you use?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>We use a combination of proprietary AI solutions and industry-leading platforms:</p>
+              <ul>
+                <li><strong>Content Generation:</strong> GPT-based systems for content ideation and creation</li>
+                <li><strong>Predictive Analytics:</strong> Custom algorithms and platforms like Google Analytics AI</li>
+                <li><strong>Chatbots:</strong> Dialogflow, IBM Watson, and custom solutions</li>
+                <li><strong>Marketing Automation:</strong> HubSpot, Marketo, and our proprietary automation platform</li>
+                <li><strong>Personalization:</strong> Dynamic Yield, Optimizely, and custom personalization engines</li>
+                <li><strong>Social Media AI:</strong> Platform-specific AI tools and third-party optimization software</li>
+              </ul>
+              <p>We select the best tools for each client's specific needs and budget.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Packages Questions -->
+      <div class="faq-section" data-category="packages">
+        <h2>Packages & Pricing Questions</h2>
+        <div class="faq-container">
+          <div class="faq-item">
+            <div class="faq-question">
+              Do you offer custom packages for specific business needs?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Yes, we understand that every business has unique needs. While we offer standardized packages for common requirements, we also provide fully customized solutions that can include:</p>
+              <ul>
+                <li>Combination of services from multiple packages</li>
+                <li>Industry-specific strategies</li>
+                <li>Scalable solutions that grow with your business</li>
+                <li>Specialized AI implementations</li>
+                <li>Enterprise-level solutions with dedicated resources</li>
+              </ul>
+              <p>During our consultation, we'll assess your specific goals and challenges to recommend the perfect package or create a custom solution for you.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              What's included in your basic SEO package?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Our basic SEO package includes:</p>
+              <ul>
+                <li>Comprehensive website audit</li>
+                <li>Keyword research and strategy</li>
+                <li>On-page optimization (meta tags, headings, content)</li>
+                <li>Technical SEO fixes</li>
+                <li>Basic content optimization recommendations</li>
+                <li>Monthly performance reporting</li>
+                <li>Google Analytics and Search Console setup</li>
+                <li>Up to 5 hours of dedicated SEO work per month</li>
+              </ul>
+              <p>This package is ideal for small businesses looking to establish a foundation for SEO success.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              Do you work with small businesses and startups?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Absolutely! We have specially designed affordable packages for startups and small businesses. We believe every business deserves access to premium digital marketing services to compete effectively in today's market.</p>
+              <p>Our small business packages include:</p>
+              <ul>
+                <li>Starter SEO packages</li>
+                <li>Social media management for growing brands</li>
+                <li>Budget-friendly PPC campaigns</li>
+                <li>Essential website development</li>
+                <li>Flexible payment options</li>
+              </ul>
+              <p>We also offer special discounts for startups in certain industries.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              Is there a minimum contract period?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Our standard contract period is 6 months for most services, as this allows sufficient time to implement strategies and see meaningful results. However, we offer different options:</p>
+              <ul>
+                <li><strong>3-month contracts:</strong> Available for certain services with a slightly higher monthly rate</li>
+                <li><strong>6-month contracts:</strong> Our standard option with the best value</li>
+                <li><strong>12-month contracts:</strong> Available with discounted rates and additional benefits</li>
+                <li><strong>Project-based work:</strong> For one-time needs like website development or audits</li>
+              </ul>
+              <p>We're confident in our ability to deliver results, which is why we offer a satisfaction guarantee with all our contracts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Process Questions -->
+      <div class="faq-section" data-category="process">
+        <h2>Process & Workflow Questions</h2>
+        <div class="faq-container">
+          <div class="faq-item">
+            <div class="faq-question">
+              What is your typical onboarding process?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Our onboarding process is designed to get your campaigns up and running efficiently:</p>
+              <ol>
+                <li><strong>Discovery Call:</strong> We discuss your goals, challenges, and requirements</li>
+                <li><strong>Proposal:</strong> We create a customized proposal with strategy and pricing</li>
+                <li><strong>Contract Signing:</strong> Formalize our partnership with a clear agreement</li>
+                <li><strong>Kickoff Meeting:</strong> Meet your dedicated account manager and team</li>
+                <li><strong>Comprehensive Audit:</strong> We analyze your current digital presence</li>
+                <li><strong>Strategy Development:</strong> Create a detailed action plan</li>
+                <li><strong>Implementation:</strong> Begin executing the strategy</li>
+                <li><strong>Regular Reporting:</strong> Provide ongoing performance updates</li>
+              </ol>
+              <p>The entire onboarding process typically takes 1-2 weeks depending on the complexity of your needs.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              Will I have a dedicated account manager?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Yes, every client is assigned a dedicated account manager who serves as your main point of contact. Your account manager:</p>
+              <ul>
+                <li>Understands your business goals and challenges</li>
+                <li>Coordinates between our specialized teams</li>
+                <li>Provides regular updates and reports</li>
+                <li>Addresses any questions or concerns</li>
+                <li>Ensures strategies align with your objectives</li>
+              </ul>
+              <p>In addition to your account manager, you'll also have access to our team of specialists in SEO, PPC, content, social media, and AI.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              How often will I receive performance reports?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>We provide comprehensive reporting on the following schedule:</p>
+              <ul>
+                <li><strong>Monthly Performance Reports:</strong> Detailed analysis of key metrics, achievements, and recommendations</li>
+                <li><strong>Weekly Check-ins:</strong> Brief updates on campaign progress and any urgent issues</li>
+                <li><strong>Quarterly Strategy Reviews:</strong> In-depth analysis of performance trends and strategic adjustments</li>
+                <li><strong>Real-time Dashboard Access:</strong> For certain services, we provide access to live dashboards</li>
+              </ul>
+              <p>All reports are designed to be clear and actionable, focusing on the metrics that matter most to your business goals.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              How do you measure success and ROI?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>We measure success based on the specific goals we establish at the beginning of our partnership. Common metrics include:</p>
+              <ul>
+                <li><strong>Traffic Metrics:</strong> Organic traffic, referral traffic, social media reach</li>
+                <li><strong>Engagement Metrics:</strong> Time on site, pages per session, social media engagement</li>
+                <li><strong>Conversion Metrics:</strong> Leads, sales, sign-ups, downloads</li>
+                <li><strong>Revenue Metrics:</strong> Return on ad spend (ROAS), customer acquisition cost (CAC), lifetime value (LTV)</li>
+                <li><strong>Brand Metrics:</strong> Brand mentions, sentiment analysis, share of voice</li>
+              </ul>
+              <p>We work with you to establish Key Performance Indicators (KPIs) that align with your business objectives and track these consistently to measure ROI.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Billing Questions -->
+      <div class="faq-section" data-category="billing">
+        <h2>Billing & Payment Questions</h2>
+        <div class="faq-container">
+          <div class="faq-item">
+            <div class="faq-question">
+              What payment methods do you accept?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>We accept various payment methods for your convenience:</p>
+              <ul>
+                <li>Credit/Debit Cards (Visa, MasterCard, American Express)</li>
+                <li>Bank Transfers (NEFT, RTGS, IMPS)</li>
+                <li>Digital Wallets (Paytm, Google Pay, PhonePe)</li>
+                <li>UPI Payments</li>
+                <li>PayPal (for international clients)</li>
+                <li>Cheque (subject to clearance)</li>
+              </ul>
+              <p>Recurring payments can be set up for automatic billing to ensure uninterrupted service.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              Do you require an upfront payment?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Our payment structure varies by service:</p>
+              <ul>
+                <li><strong>Monthly Retainers:</strong> We typically bill monthly in advance</li>
+                <li><strong>Project-Based Work:</strong> We require a 50% deposit to begin work, with the balance due upon completion</li>
+                <li><strong>PPC Advertising:</strong> Ad spend is billed in advance, while management fees are billed monthly</li>
+                <li><strong>Enterprise Solutions:</strong> Custom payment schedules are available</li>
+              </ul>
+              <p>We're flexible and can work with you to establish a payment schedule that works for your business.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              Are there any hidden costs or additional fees?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>We believe in transparent pricing with no hidden costs. Our proposals clearly outline:</p>
+              <ul>
+                <li>Monthly service fees</li>
+                <li>Any setup or onboarding fees</li>
+                <li>Ad spend budgets (for PPC campaigns)</li>
+                <li>Third-party tool costs (if applicable)</li>
+                <li>Content production costs (if not included in package)</li>
+              </ul>
+              <p>We'll discuss any potential additional costs upfront and require your approval before proceeding with any expenses beyond the agreed scope.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              Do you offer refunds if I'm not satisfied?
+              <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>We're committed to your satisfaction and stand behind our work. Our refund policy includes:</p>
+              <ul>
+                <li><strong>Satisfaction Guarantee:</strong> If you're not satisfied with our services within the first 30 days, we'll refund your payment</li>
+                <li><strong>Performance-Based Guarantees:</strong> For certain services like PPC, we offer performance guarantees</li>
+                <li><strong>Pro-Rated Refunds:</strong> If you need to cancel mid-month for valid reasons, we provide pro-rated refunds</li>
+                <li><strong>Dispute Resolution:</strong> We work to resolve any issues before considering refunds</li>
+              </ul>
+              <p>Our goal is your success, and we'll do everything we can to ensure you're happy with our partnership.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section class="contact-cta">
+    <div class="container">
+      <h2>Still Have Questions?</h2>
+      <p>Can't find the answer you're looking for? Our team is here to help with any questions about our services, packages, or processes.</p>
+      <a href="contact.html" class="btn pulse">Contact Us Today</a>
+    </div>
+  </section>
+<script>
+// FAQ Page Specific JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+  // FAQ Accordion Functionality
+  const faqItems = document.querySelectorAll('.faq-item');
+  
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    
+    question.addEventListener('click', () => {
+      // Close all other items
+      faqItems.forEach(otherItem => {
+        if (otherItem !== item && otherItem.classList.contains('active')) {
+          otherItem.classList.remove('active');
+        }
+      });
+      
+      // Toggle current item
+      item.classList.toggle('active');
+    });
+  });
+  
+  // Category Filtering
+  const categoryTabs = document.querySelectorAll('.category-tab');
+  const faqSections = document.querySelectorAll('.faq-section');
+  
+  categoryTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const category = tab.getAttribute('data-category');
+      
+      // Update active tab
+      categoryTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      
+      // Show/hide sections
+      faqSections.forEach(section => {
+        if (category === 'all' || section.getAttribute('data-category') === category) {
+          section.style.display = 'block';
+        } else {
+          section.style.display = 'none';
+        }
+      });
+    });
+  });
+  
+  // FAQ Search Functionality
+  const searchInput = document.getElementById('faqSearch');
+  
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      const searchTerm = this.value.toLowerCase();
+      
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question').textContent.toLowerCase();
+        const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+        
+        if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+          item.style.display = 'block';
+          
+          // Highlight matching text
+          if (searchTerm.length > 2) {
+            highlightText(item, searchTerm);
+          }
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  }
+  
+  // Text highlighting function
+  function highlightText(element, searchTerm) {
+    const textNodes = getTextNodes(element);
+    
+    textNodes.forEach(node => {
+      const parent = node.parentNode;
+      const text = node.textContent;
+      const regex = new RegExp(`(${searchTerm})`, 'gi');
+      const newText = text.replace(regex, '<mark>$1</mark>');
+      
+      if (newText !== text) {
+        const newElement = document.createElement('span');
+        newElement.innerHTML = newText;
+        parent.replaceChild(newElement, node);
+      }
+    });
+  }
+  
+  // Helper function to get all text nodes
+  function getTextNodes(element) {
+    const textNodes = [];
+    
+    function findTextNodes(node) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        textNodes.push(node);
+      } else {
+        for (let i = 0; i < node.childNodes.length; i++) {
+          findTextNodes(node.childNodes[i]);
+        }
+      }
+    }
+    
+    findTextNodes(element);
+    return textNodes;
+  }
+  
+  // Scroll Animations with GSAP
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animate FAQ items on scroll
+    const faqElements = document.querySelectorAll('.faq-item');
+    
+    faqElements.forEach((el, index) => {
+      gsap.fromTo(el, 
+        { 
+          opacity: 0, 
+          y: 30
+        }, 
+        { 
+          opacity: 1, 
+          y: 0,
+          duration: 0.5,
+          delay: index * 0.1,
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+  }
+});
+</script>
+<script>
+// Menu toggle functionality
+document.addEventListener('DOMContentLoaded', function() {
+  // Toggle mobile menu
+  const hamburger = document.querySelector('.hamburger');
+  const nav = document.querySelector('nav');
+  const closeBtn = document.querySelector('.close-btn');
+  
+  if (hamburger) {
+    hamburger.addEventListener('click', function() {
+      nav.classList.add('active');
+    });
+  }
+  
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function() {
+      nav.classList.remove('active');
+    });
+  }
+  
+  // Toggle dropdown menus
+  const menuItems = document.querySelectorAll('.menu > a');
+  menuItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      const menu = this.parentElement;
+      menu.classList.toggle('active');
+      
+      // Close other open menus
+      document.querySelectorAll('.menu').forEach(otherMenu => {
+        if (otherMenu !== menu) {
+          otherMenu.classList.remove('active');
+        }
+      });
+    });
+  });
+  
+  // Toggle accordion items
+  const accordionHeaders = document.querySelectorAll('.accordion-header');
+  accordionHeaders.forEach(header => {
+    header.addEventListener('click', function() {
+      this.classList.toggle('active');
+      const content = this.nextElementSibling;
+      content.classList.toggle('active');
+    });
+  });
+  
+  // Close menus when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('nav')) {
+      document.querySelectorAll('.menu').forEach(menu => {
+        menu.classList.remove('active');
+      });
+    }
+  });
+
+  // Scroll Animations with GSAP
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animate on scroll
+    const fadeElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+    
+    fadeElements.forEach(el => {
+      gsap.fromTo(el, 
+        { 
+          opacity: 0, 
+          y: el.classList.contains('slide-in-left') ? 0 : 
+             el.classList.contains('slide-in-right') ? 0 : 50,
+          x: el.classList.contains('slide-in-left') ? -50 : 
+             el.classList.contains('slide-in-right') ? 50 : 0
+        }, 
+        { 
+          opacity: 1, 
+          y: 0, 
+          x: 0,
+          duration: 1,
+          scrollTrigger: {
+            trigger: el,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+
+    // 3D Background Animation
+    const shapes = document.querySelectorAll('.shape');
+    shapes.forEach(shape => {
+      gsap.to(shape, {
+        rotation: 360,
+        duration: 40,
+        repeat: -1,
+        ease: "none"
+      });
+    });
+  }
+});
+</script>
+
+</body>
+</html>
